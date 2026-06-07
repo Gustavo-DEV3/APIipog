@@ -18,17 +18,21 @@ public class User {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "tarefa")
+    private String tarefa;
+
     //construtor padrao
     public User() {
         super();
     }
     //construtor com todos os atributos
-    public User(Long id, String name, String email, String password) {
+    public User(Long id, String name, String email, String password, String tarefa) {
         super();
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
+        this.tarefa = tarefa;
     }
 
     public Long getId() {
@@ -62,4 +66,8 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getTarefa() {return tarefa;};
+
+    public void setTarefa(String tarefa) {this.tarefa = tarefa;}
 }

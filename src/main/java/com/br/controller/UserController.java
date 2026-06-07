@@ -38,4 +38,35 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
+    //inserindo um novo user
+    //POST - http://localhost:8080/cuser/user - dados do usuario a ser inserido
+
+    @PostMapping("/user")
+    public User save(@RequestBody User user) {
+        return this.uRep.save(user);
+    }
+
+
+    //alterando um usuario existente no banco de dados
+    //PUT - http://localhost:8080/cuser/user/{id} + dados alterados no sistema
+    @PutMapping("/user/{id}")
+    public ResponseEntity<User> update(@PathVariable Long id, @RequestBody User user) {
+
+        User u = this.uRep.findById(id).orElseThrow(()->
+        new ResourceNotFoundException("usuario nao encontrado" +id));
+        //altera o id do projeto de acordo com o que é colocado na url
+        u.setId(id);
+        u.setName(user.getName());
+        u.setEmail(user.getEmail());
+        u.setPassword(user.getPassword());
+
+        User userAtualizado = this.uRep.save(u);
+        return ResponseEntity.ok(userAtualizado);
+    }
+
+    @DeleteMapping("/user/{id}")
+    public void delete(@PathVariable Long id) {
+        this.uRep.deleteById(id);
+    }
+
 }
