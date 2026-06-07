@@ -49,7 +49,9 @@ public class UserController {
     }
 
     @PutMapping("/user/{id}/tarefa")
-    public String atribuirTarefa(@PathVariable Long id, @RequestParam("tarefa") String tarefa) {}
+    public String atribuirTarefa(@PathVariable Long id, @RequestParam("tarefa") String tarefa) {
+        return "tarefa";
+    }
 
     //alterando um usuario existente no banco de dados
     //PUT - http://localhost:8080/cuser/user/{id} + dados alterados no sistema
