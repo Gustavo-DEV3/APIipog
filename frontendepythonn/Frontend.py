@@ -2,8 +2,8 @@ import user
 import requests
 
 def listar():
-    resposta.request.get("http://localhost:8000/cuser/user")
-    resultado - resposta.json()
+    resposta = request.get("http://localhost:8000/cuser/user")
+    resultado = resposta.json()
 
     print("=====================================lista===================================")
     for user in resultado:
