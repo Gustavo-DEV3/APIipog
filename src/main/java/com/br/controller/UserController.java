@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 // o endereço dos serviços será: http://localhost:8080/cuser/<>
 
@@ -46,6 +48,8 @@ public class UserController {
         return this.uRep.save(user);
     }
 
+    @PutMapping("/user/{id}/tarefa")
+    public String atribuirTarefa(@PathVariable Long id, @RequestParam("tarefa") String tarefa) {}
 
     //alterando um usuario existente no banco de dados
     //PUT - http://localhost:8080/cuser/user/{id} + dados alterados no sistema
@@ -64,9 +68,17 @@ public class UserController {
         return ResponseEntity.ok(userAtualizado);
     }
 
+    //Excluir um usuario existente no banco de dados ou do projeto que esta sendo executado
+    //DELETE -  http://localhost:8080/cuser/user/{id}
     @DeleteMapping("/user/{id}")
-    public void delete(@PathVariable Long id) {
-        this.uRep.deleteById(id);
+    public ResponseEntity<Map<String, Boolean>> excluir(@PathVariable Long id){
+        User user = this.uRep.findById(id).orElseThrow(() ->
+        new ResourceNotFoundException("usuario nao encontrado" +id));
+
+        this.uRep.delete(user);
+        Map<String, Boolean> resposta = new HashMap<>();
+        resposta.put("excluido",true);
+        return ResponseEntity.ok(resposta);
     }
 
 }
